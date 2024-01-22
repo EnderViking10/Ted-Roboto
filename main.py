@@ -8,7 +8,7 @@ async def ball8(message: discord.Message):
                  'Dont count on it', 'It is decidedly so',
                  'Yes, definitely', 'Concentrate and ask again',
                  'Signs point to yes', 'Reply hazy', 'My reply is no',
-                 'try again', 'As I see it, yes', ']
+                 'try again', 'As I see it, yes']
 
     await message.reply(f'{random.choice(responses)}')
 
