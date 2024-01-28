@@ -66,6 +66,9 @@ class MyClient(discord.Client):
         if 'friday' in message.content:
             await friday(message)
 
+        if 'jesus' in message.content:
+            await message.reply('https://www.youtube.com/watch?v=FT5bBRjLgR8')
+
         if 'help' in message.content:
             await help_message(message)
 
