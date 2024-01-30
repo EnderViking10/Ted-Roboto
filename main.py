@@ -84,6 +84,7 @@ def main():
     load_dotenv()
 
     TOKEN = os.getenv("DISCORD_TOKEN")
+    
     client = MyClient(intents=intents)
     client.run(TOKEN)
 
