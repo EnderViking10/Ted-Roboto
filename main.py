@@ -1,6 +1,8 @@
+import os
 import random
 
 import discord
+from dotenv import load_dotenv
 
 
 async def ball8(message: discord.Message):
@@ -8,7 +10,8 @@ async def ball8(message: discord.Message):
                  'Dont count on it', 'It is decidedly so',
                  'Yes, definitely', 'Concentrate and ask again',
                  'Signs point to yes', 'Reply hazy', 'My reply is no',
-                 'try again', 'As I see it, yes', 'Failire is another form of Success']
+                 'try again', 'As I see it, yes',
+                 'Failire is another form of Success']
 
     await message.reply(f'{random.choice(responses)}')
 
@@ -76,7 +79,14 @@ class MyClient(discord.Client):
 intents = discord.Intents.default()
 intents.message_content = True
 
-if __name__ == '__main__':
+
+def main():
+    load_dotenv()
+
+    TOKEN = os.getenv("DISCORD_TOKEN")
     client = MyClient(intents=intents)
-    client.run(
-        'MTAwNzM2ODU0MDY2NTQzNDEzMg.GstRqR.-gKRmcuWWGArpjx_tOpqhD5bVbqKGJdvuFGzP8')
+    client.run(TOKEN)
+
+
+if __name__ == '__main__':
+    main()
