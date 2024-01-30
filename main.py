@@ -11,7 +11,7 @@ async def ball8(message: discord.Message):
                  'Yes, definitely', 'Concentrate and ask again',
                  'Signs point to yes', 'Reply hazy', 'My reply is no',
                  'try again', 'As I see it, yes',
-                 'Failire is another form of Success']
+                 'Failure is another form of Success', 'Yikes']
 
     await message.reply(f'{random.choice(responses)}')
 
@@ -84,7 +84,7 @@ def main():
     load_dotenv()
 
     TOKEN = os.getenv("DISCORD_TOKEN")
-    
+
     client = MyClient(intents=intents)
     client.run(TOKEN)
 
