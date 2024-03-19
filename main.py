@@ -2,7 +2,6 @@ import os
 import random
 
 import discord
-from dotenv import load_dotenv
 
 
 async def ball8(message: discord.Message):
@@ -45,6 +44,19 @@ async def help_message(message: discord.Message):
     await message.reply(response)
 
 
+async def shame(message: discord.Message):
+    user = message.mentions
+    message_num = 10
+
+    message_args = message.content.split(' ')
+
+    if len(message_args) >= 3:
+        message_num = int(message_args[2])
+
+    for i in range(message_num):
+        await message.channel.send(f'{message.mentions[0].mention}: Log into chat!! https://tenor.com/view/cat-disapear-cat-snow-cat-jump-fail-cat-fun-jump-cats-gif-7283381407501919931')
+
+
 class MyClient(discord.Client):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
@@ -72,15 +84,16 @@ class MyClient(discord.Client):
         if 'help' in message.content:
             await help_message(message)
 
+        if 'shame' in message.content:
+            await shame(message)
+
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 
 def main():
-    load_dotenv()
-
-    TOKEN = os.getenv("DISCORD_TOKEN")
+    TOKEN = ""
 
     client = MyClient(intents=intents)
     client.run(TOKEN)
