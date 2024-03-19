@@ -50,6 +50,9 @@ async def shame(message: discord.Message):
 
     message_args = message.content.split(' ')
 
+    if len(message_args) <= 1:
+        await message.reply('You must mention a person')
+
     if len(message_args) >= 3:
         message_num = int(message_args[2])
 
