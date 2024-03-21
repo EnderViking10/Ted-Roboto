@@ -1,15 +1,18 @@
+from asyncio import TimeoutError
 import random
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import has_permissions
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix='#', intents=intents)
+bot = commands.Bot(command_prefix='$', intents=intents)
 
 
 @bot.hybrid_command(name="8ball", description="Shake the 8 ball")
+@has_permissions(administrator=True)
 async def ball_8(ctx):
     responses = ['Outlook good', 'Better not tell you now', 'Most likely',
                  'Dont count on it', 'It is decidedly so',
@@ -47,14 +50,26 @@ async def friday(ctx):
 
 
 @bot.hybrid_command(name="shame")
-async def shame(ctx, user: discord.User = None, message_number: int = 10):
+async def shame(ctx, user: discord.User = None, message_number: int = 1):
     if user is None:
         return await ctx.message.reply('You must specify a user')
+
+    message_number = 10 if message_number > 10 else message_number
 
     await ctx.defer()
     for i in range(message_number):
         await ctx.message.channel.send(
-            f'{ctx.message.mentions[0].mention}: Log into chat!! https://tenor.com/view/cat-disapear-cat-snow-cat-jump-fail-cat-fun-jump-cats-gif-7283381407501919931')
+            f'{user.mention}: Log into chat!! https://tenor.com/view/cat-disapear-cat-snow-cat-jump-fail-cat-fun-jump-cats-gif-7283381407501919931\n'
+            f'Send "Echo Im in" when you haved logged into chat!')
+
+    def check(message):
+        return message.author == user and "im in" in message.content.lower()
+
+    try:
+        await bot.wait_for('message', check=check, timeout=60)
+        await ctx.send("Thank you for confirming!")
+    except TimeoutError:
+        await ctx.send(f"{user.mention} did not confirm in time.")
 
 
 @bot.command(name="sync", description="Sync Commands")
