@@ -12,7 +12,6 @@ bot = commands.Bot(command_prefix='#', intents=intents)
 
 
 @bot.hybrid_command(name="8ball", description="Shake the 8 ball")
-@has_permissions(administrator=True)
 async def ball_8(ctx):
     responses = ['Outlook good', 'Better not tell you now', 'Most likely',
                  'Dont count on it', 'It is decidedly so',
